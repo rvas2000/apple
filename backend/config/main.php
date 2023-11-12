@@ -37,6 +37,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => 'mysql:host=localhost;dbname=apple',
+            'username' => 'web_user',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
