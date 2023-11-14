@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'Играем в яблоки',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -15,6 +16,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' =>  ['application/json' => 'yii\web\JsonParser'],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -35,6 +37,7 @@ return [
             ],
         ],
         'errorHandler' => [
+            'class' => \backend\common\ErrorHandler::class,
             'errorAction' => 'site/error',
         ],
         'db' => [
@@ -44,14 +47,12 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//            ],
+//        ],
     ],
     'params' => $params,
 ];
