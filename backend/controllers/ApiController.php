@@ -3,11 +3,37 @@
 namespace backend\controllers;
 
 use backend\models\Apple;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
 
 class ApiController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => [
+                            'actionGetApple',
+                            'actionGetAllApples',
+                            'actionCheckAll',
+                            'actionEat',
+                            'actionDelete',
+                            'actionFall',
+                            'actionGenerate',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
