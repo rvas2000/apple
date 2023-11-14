@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\Apple;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -51,7 +52,18 @@ class ApiController extends Controller
             'eatenPercent' => $apple->getEatenPercent()
         ];
     }
-    public function actionGetApple(int $appleId): string
+
+    protected function success(): array
+    {
+        return ['status' => 'OK'];
+    }
+
+    protected function successWithData($result): array
+    {
+        return ['status' => 'OK', 'data' => $result];
+    }
+
+    public function actionGetApple(int $appleId): array
     {
         $apple = Apple::findOne($appleId);
         if (!$apple) {
@@ -60,10 +72,10 @@ class ApiController extends Controller
 
         $result = $this->apple2Array($apple);
 
-        return $this->render('success-with-data.php', ['result' => $result]);
+        return $this->successWithData($result);
     }
 
-    public function actionGetAllApples(): string
+    public function actionGetAllApples(): array
     {
         $apples = Apple::find()->onCondition(['deleted' => 0])->orderBy(['set_date' => 'desc'])->all();
         $result = [];
@@ -71,20 +83,20 @@ class ApiController extends Controller
             $result[] = $this->apple2Array($apple);
         }
 
-        return $this->render('success-with-data.php', ['result' => $result]);
+        return $this->successWithData($result);
     }
 
-    public function actionCheckAll(): string
+    public function actionCheckAll(): array
     {
         $apples = Apple::findAll(['status_id' =>Apple::STATUS_ON_GROUND]);
         foreach ($apples as $apple) {
             $apple->check();
         }
 
-        return $this->render('success');
+        return $this->success();
     }
 
-    public function actionEat(int $appleId, int $percent): string
+    public function actionEat(int $appleId, int $percent): array
     {
         $apple = Apple::findOne($appleId);
         if (!$apple) {
@@ -97,10 +109,10 @@ class ApiController extends Controller
             'eatenPercent' => $apple->getEatenPercent(),
         ];
 
-        return $this->render('success-with-data.php', ['result' => $result]);
+        return $this->successWithData($result);
     }
 
-    public function actionDelete(int $appleId): string
+    public function actionDelete(int $appleId): array
     {
         $apple = Apple::findOne($appleId);
         if (!$apple) {
@@ -109,10 +121,10 @@ class ApiController extends Controller
 
         $apple->delete();
 
-        return $this->render('success');
+        return $this->success();
     }
 
-    public function actionFall(int $appleId): string
+    public function actionFall(int $appleId): array
     {
         $apple = Apple::findOne($appleId);
         if (!$apple) {
@@ -121,14 +133,14 @@ class ApiController extends Controller
 
         $apple->fall();
 
-        return $this->render('success');
+        return $this->success();
     }
 
-    public function actionGenerate(): string
+    public function actionGenerate(): array
     {
         $result = ['number' => Apple::generate()];
 
-        return $this->render('success-with-data.php', ['result' => $result]);
+        return $this->successWithData($result);
     }
 
 }
