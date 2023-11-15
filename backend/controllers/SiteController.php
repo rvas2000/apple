@@ -63,7 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $apples = Apple::find()->onCondition(['deleted' => 0])->orderBy(['set_date' => 'desc'])->all();
+        $apples = Apple::find()->where(['deleted' => 0])->orderBy(['set_date' => 'desc'])->all();
 
         return $this->render('index');
     }
