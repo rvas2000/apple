@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Apple;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -62,6 +63,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $apples = Apple::find()->onCondition(['deleted' => 0])->orderBy(['set_date' => 'desc'])->all();
+
         return $this->render('index');
     }
 
