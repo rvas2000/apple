@@ -282,7 +282,7 @@ class Apple extends ActiveRecord
     public static function getAllNotDeleted(): array
     {
         return self::find()
-            ->onCondition(['deleted' => 0])
+            ->where(['deleted' => 0])
             ->orderBy(['id' => SORT_DESC])->all();
     }
 
@@ -294,8 +294,8 @@ class Apple extends ActiveRecord
     public static function getAllOnGround(): array
     {
         return self::find()
-            ->onCondition(['deleted' => 0])
-            ->andOnCondition(['status_id' => self::STATUS_ON_GROUND])
+            ->where(['deleted' => 0])
+            ->andWhere(['status_id' => self::STATUS_ON_GROUND])
             ->orderBy(['id' => SORT_DESC])
             ->all();
     }

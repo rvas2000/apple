@@ -8,7 +8,7 @@ $(document).ready(function () {
      */
     let showError = function (message) {
         // В реальной ситуации сделать что-нибудь более наглядное
-        console.log(message);
+        alert(message);
     };
 
     /**
@@ -71,7 +71,7 @@ $(document).ready(function () {
                     + '	<div class="apple-body">'
                     + '		<div class="apple-caption" style="color: white">Гнилое!</div>'
                     + '	</div>'
-                    + '	<a href="api/delete?appleId=25">Удалить</a>'
+                    + '	<a href="api/delete?appleId=' + apple.id + '">Удалить</a>'
                     + '</div>';
                 break;
             case 2:
@@ -86,7 +86,7 @@ $(document).ready(function () {
                     + '			<button>Да</button>'
                     + '		</form>'
                     + '	</div>'
-                    + '	<a href="api/delete?appleId=25">Удалить</a>'
+                    + '	<a href="api/delete?appleId=' + apple.id + '">Удалить</a>'
                     + '</div>';
                 break;
             default:
