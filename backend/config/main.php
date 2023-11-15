@@ -47,12 +47,12 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
 //            'rules' => [
 //            ],
-//        ],
+        ],
     ],
     'params' => $params,
 ];

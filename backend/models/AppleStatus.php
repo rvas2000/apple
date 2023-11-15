@@ -6,7 +6,6 @@ use yii\db\ActiveRecord;
 
 class AppleStatus extends ActiveRecord
 {
-    protected ?int $id;
     protected string $statusName;
 
     /**

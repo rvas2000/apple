@@ -11,29 +11,29 @@ use yii\web\Response;
 
 class ApiController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => [
-                            'actionGetApple',
-                            'actionGetAllApples',
-                            'actionCheckAll',
-                            'actionEat',
-                            'actionDelete',
-                            'actionFall',
-                            'actionGenerate',
-                        ],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            'access' => [
+//                'class' => AccessControl::class,
+//                'rules' => [
+//                    [
+//                        'actions' => [
+//                            'actionGetApple',
+//                            'actionGetAllApples',
+//                            'actionCheckAll',
+//                            'actionEat',
+//                            'actionDelete',
+//                            'actionFall',
+//                            'actionGenerate',
+//                        ],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                ],
+//            ],
+//        ];
+//    }
 
     public function __construct($id, $module, $config = [])
     {
@@ -48,7 +48,7 @@ class ApiController extends Controller
             'id' => $apple->getId(),
             'setDate' => $apple->getSetDate()->format('d.m.Y H:i:s'),
             'color' => ['name' => $apple->getColor()->getColorName(), 'rgb' => $apple->getColor()->getRgb()],
-            'status' => $apple->getStatus()->getStatusName(),
+            'status' => ['id' => $apple->getStatus()->getId(), 'name' => $apple->getStatus()->getStatusName()],
             'eatenPercent' => $apple->getEatenPercent()
         ];
     }
@@ -77,7 +77,7 @@ class ApiController extends Controller
 
     public function actionGetAllApples(): array
     {
-        $apples = Apple::find()->onCondition(['deleted' => 0])->orderBy(['set_date' => 'desc'])->all();
+        $apples = Apple::getAllNotDeleted();
         $result = [];
         foreach ($apples as $apple) {
             $result[] = $this->apple2Array($apple);
@@ -88,7 +88,7 @@ class ApiController extends Controller
 
     public function actionCheckAll(): array
     {
-        $apples = Apple::findAll(['status_id' =>Apple::STATUS_ON_GROUND]);
+        $apples = Apple::getAllOnGround();
         foreach ($apples as $apple) {
             $apple->check();
         }

@@ -273,4 +273,30 @@ class Apple extends ActiveRecord
         return $n;
 
     }
+
+    /**
+     * Выбрать все яблоки, не помеченные как удаленные
+     *
+     * @return array
+     */
+    public static function getAllNotDeleted(): array
+    {
+        return self::find()
+            ->onCondition(['deleted' => 0])
+            ->orderBy(['id' => SORT_DESC])->all();
+    }
+
+    /**
+     * Выбрать все неудаленные яблоки, лежащие на земле
+     *
+     * @return array
+     */
+    public static function getAllOnGround(): array
+    {
+        return self::find()
+            ->onCondition(['deleted' => 0])
+            ->andOnCondition(['status_id' => self::STATUS_ON_GROUND])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
 }
