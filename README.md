@@ -1,61 +1,36 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+# Игра в яблоки (тестовое задание)
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+### 1. Установка
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+* 1.1 Клонировать проект из репозитория в папку документов веб-сервера
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+* 1.2 В корне паки проекта запустить 
+<br>`composer install`<br>
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+* 1.3 На сервере MySQL создать пустую базу данных и пользователя, имеющего доступ к ней (чтение и модификация данных)
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+* 1.4 Прописать настройки доступа к серверу БД
+* 1. 1.4.1 в файле backend/config/main.php - пользователя, имеющего права на чтение и модификацию данных
+* 2. 1.4.2 в файле common/config/main.php - пользователя, имеющего права на чтение, модификацию данных и на модификацию структуры
 
-DIRECTORY STRUCTURE
--------------------
+* 1.5 В корне папки проекта запустить команду миграции
+  <br>`yii migrate`<br>
+Эта команда создаст в БД структуру и заполнит ее начальными данными
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
-"# apple" 
+* 1.6 В корне папки проекта запустить команду
+  <br>`yii apple/manage-user`<br>
+  Эта команда создаст в интерактивном режиме пользователя для входа в приложение
+
+* 1.7 Сконфигурировать веб-сервер таким образом, чтобы он смотрел в папку `backend/web`
+
+### 2. Работа
+2.1 добавлены консольные команды
+*   `yii apple/check-all` - вывод массива яблок
+*   `yii apple/delete <appleId>` - удалить яблоко
+*   `yii apple/eat <appleId>` <percent> - съесть кусок яблока
+*   `yii apple/fall <appleId>` - сбросить яблоко с дерева
+*   `yii apple/generate` - создание на дереве случайного количества яблок случайного цвета
+*   `yii apple/index` - (default) вывод массива яблок
+*   `yii apple/manage-user` - создание/изменение пользователя
+
+2.2 Все те же действия выполняются наглядно в веб-интерфейсе. В данной задаче принята модель взаимодействия сервер-клиент посредством AJAX и API без перезагрузки страницы.
