@@ -135,15 +135,17 @@ $(document).ready(function () {
      * Инициализация игрового поля
      */
     let init = function() {
-        // Очищаем дерео и корзину
-        applesTree.clear();
-        applesBasket.clear();
-
         // Получаем массив всех неудаленных ябок с сервера и размещаем их на дереве и в корзине
+        $('div.apple-wait-loading').show();
         $.ajax('api/get-all-apples', {
             method: 'get',
             success: function (data) {
+                // Очищаем дерео и корзину
+                applesTree.clear();
+                applesBasket.clear();
+                // раскладываем полученные яблоки
                 parseResponse(data, true, showApples);
+                $('div.apple-wait-loading').hide();
             }
         });
     };
@@ -162,7 +164,7 @@ $(document).ready(function () {
     });
 
     // Обработчики ссылок - выполняется ajax
-    $(document).delegate('div.apple a, .apple-group-operations a', 'click', function(evnt) {
+    $(document).delegate('div.body-content a', 'click', function(evnt) {
         let url = $(evnt.target).closest('a').attr('href');
         $.ajax(url, {
             method: 'get',
