@@ -11,29 +11,29 @@ use yii\web\Response;
 
 class ApiController extends Controller
 {
-//    public function behaviors()
-//    {
-//        return [
-//            'access' => [
-//                'class' => AccessControl::class,
-//                'rules' => [
-//                    [
-//                        'actions' => [
-//                            'actionGetApple',
-//                            'actionGetAllApples',
-//                            'actionCheckAll',
-//                            'actionEat',
-//                            'actionDelete',
-//                            'actionFall',
-//                            'actionGenerate',
-//                        ],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
-//        ];
-//    }
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => [
+                            'get-apple',
+                            'get-all-apples',
+                            'check-all',
+                            'eat',
+                            'delete',
+                            'fall',
+                            'generate',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function __construct($id, $module, $config = [])
     {
